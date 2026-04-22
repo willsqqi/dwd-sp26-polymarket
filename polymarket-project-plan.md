@@ -16,18 +16,18 @@
 ## 2) Notebook A: General Polymarket Analysis
 
 ### Goal
-Provide a clear overview of open-event activity, market structure, and platform-level trading context.
+Provide a clear overview of open-event activity and platform-level trading context at the event-aggregation layer.
 
 ### Data Sources
-- Polymarket Gamma API (`/events`, `/markets`)
-- Optional AI commentary step using AI agents on selected events
+- Polymarket Gamma API (`/events` only — `/markets` is intentionally not used; it truncates and is not representative at the sample size the free endpoint allows)
+- Optional AI commentary step using Vertex AI on one selected event
 
 ### Procedure
-1. Pull event and market metadata with pagination.
-2. Filter to open/live events and clean core fields (IDs, dates, volume/liquidity-like columns).
-3. Build high-level summary tables for market size, concentration, and event ranking.
-4. Create 3-5 presentation charts (distribution + top events + trend style views).
-5. Export cleaned event/market tables to `polymarket_outputs/`.
+1. Pull open-event metadata with pagination from `/events`.
+2. Derive a usable category per event from tags/series; coerce volume/liquidity/createdAt in place.
+3. Build event-level summary tables: total/mean/median volume, top N by volume, top N by liquidity.
+4. Create 4 presentation charts (volume distribution, top-15 by volume, creation trend, top categories).
+5. Export the cleaned events table to `polymarket_outputs/events_open_raw.csv`.
 
 ### Event-to-AI Flow
 - Prints top open events by volume.
@@ -36,7 +36,7 @@ Provide a clear overview of open-event activity, market structure, and platform-
 
 ### Deliverables
 - One polished general-analysis notebook.
-- Reusable CSV outputs for event/market snapshots.
+- Reusable CSV output for the event snapshot (`events_open_raw.csv`).
 
 ---
 
